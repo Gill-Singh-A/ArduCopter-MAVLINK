@@ -29,3 +29,5 @@ In Raspberry Pi, the Bluetooth uses the UART. So to disable it, type the followi
 ```bash
 sudo echo 'dtoverlay=disable-bt' >> /boot/firmware/config.txt
 ```
+## Connection to Pixhawk
+![Rasberry Pi to Pixhawk](assets/images/raspberry_pi_connection.jpeg)
