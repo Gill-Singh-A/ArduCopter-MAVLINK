@@ -40,3 +40,6 @@ Some programs have extra command line arguments
 * z: Distance to Move Down (in meters)
 * yaw: Yaw
 * position-tolerance: Position Tolerance (in meters)
+# References
+* [ArduCopter MAVLink Messages](https://ardupilot.org/dev/docs/ArduCopter_MAVLink_Messages.html)
+* [MAVLink Developer Guide](https://mavlink.io/en/)
