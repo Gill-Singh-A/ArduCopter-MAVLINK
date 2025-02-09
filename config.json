@@ -1,0 +1,7 @@
+{
+  "connection": "/dev/serial0",
+  "baudrate": 57600,
+  "takeoff_altitude": 2.0,
+  "yaw": 0.0,
+  "position_tolerance": 0.1
+}
