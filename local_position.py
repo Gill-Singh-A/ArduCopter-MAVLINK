@@ -21,7 +21,7 @@ type_masks = {
 }
 
 def goto_local_position(mavlink_connection, local_x, local_y, local_z, yaw=0, tolerance=0.1, type_mask="position"):
-	mavlink_connection.send(mavutil.mavlink.MAVLink_set_position_target_local_ned_message(
+	mavlink_connection.mav.send(mavutil.mavlink.MAVLink_set_position_target_local_ned_message(
 		10, mavlink_connection.target_system, mavlink_connection.target_component, mavutil.mavlink.MAV_FRAME_LOCAL_NED, type_masks[type_mask],
 		local_x, local_y, local_z, 0, 0, 0, 0, 0, 0, yaw, 0
 	))
