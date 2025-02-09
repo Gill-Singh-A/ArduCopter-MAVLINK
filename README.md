@@ -31,6 +31,13 @@ Some programs have extra command line arguments
 * altitude: Takeoff Altitude
 ### set_mode.py
 * mode: Mode to Set
+### set_home.py
+* latitude: Latitude
+* longitude: Longitude
+* altitude: Altitude in meters (above home point)
+* roll: Roll
+* pitch: Pitch
+* yaw: Yaw
 ### set_speed.py
 * set-speed: Speed to Set (in meters/second)
 * speed-type: Speed Types
@@ -38,6 +45,12 @@ Some programs have extra command line arguments
 * x: Distance to Move in North (in meters)
 * y: Distance to Move in East (in meters)
 * z: Distance to Move Down (in meters)
+* yaw: Yaw
+* position-tolerance: Position Tolerance (in meters)
+### global_position.py
+* latitude: Latitude
+* longitude: Longitude
+* altitude: Altitude in meters (above home point)
 * yaw: Yaw
 * position-tolerance: Position Tolerance (in meters)
 # References
