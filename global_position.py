@@ -1,0 +1,59 @@
+#! /usr/bin/env python3
+
+import json
+from pymavlink import mavutil
+
+from utils.display import display
+from utils.commandline_arguments import get_arguments
+
+with open("config.json", 'r') as file:
+	configuration = json.load(file)
+
+type_masks = {
+	"position": 3576,
+	"velocity": 3527,
+	"acceleration": 3128,
+	"position+velocity": 3520,
+	"position+velocity+acceleration": 3072,
+	"yaw": 2559,
+	"yaw_rate": 1535
+}
+
+def goto_global_position(mavlink_connection, global_latitude, global_longitude, global_altitude, yaw=0, tolerance=0.1, type_mask="position"):
+	mavlink_connection.mav.send(mavutil.mavlink.MAVLink_set_position_target_global_int_message(
+		10, mavlink_connection.target_system, mavlink_connection.target_component, mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT, type_masks[type_mask],
+		int(global_latitude * 10 ** 7), int(global_longitude * 10 ** 7), global_altitude, 0, 0, 0, 0, 0, 0, yaw, 0
+	))
+
+if __name__ == "__main__":
+	arguments = get_arguments(('-l', "--latitude", "latitude", "Latitude"),
+                              ('-L', "--longitude", "longitude", "Longitude"),
+                              ('-a', "--altitude", "altitude", f"Altitude in meters (above home point)"),
+                              ('-y', "--yaw", "yaw", f"Yaw (Default={configuration['yaw']})"),
+                              ('-t', "--position-tolerance", "position_tolerance", f"Position Tolerance (in meters, Default={configuration['position_tolerance']})"),
+                              ('-c', "--connection", "connection", f"Serial Device for MAVLINK (Default={configuration['connection']})"),
+                              ('-b', "--baudrate", "baudrate", f"Baudrate for MAVLINK Connection (Default={configuration['baudrate']})"))
+	arguments.connection = arguments.connection if arguments.connection else configuration["connection"]
+	arguments.baudrate = int(arguments.baudrate) if arguments.baudrate else configuration["baudrate"]
+	if not arguments.latitude or not arguments.longitude or not arguments.altitude:
+		display('-', "Please Enter a Valid Position")
+		exit(0)
+	latitude, longitude, altitude = float(arguments.latitude), float(arguments.longitude), float(arguments.altitude)
+	yaw = float(arguments.yaw) if arguments.yaw else configuration["yaw"]
+	position_tolerance = float(arguments.position_tolerance) if arguments.position_tolerance else configuration["position_tolerance"]
+
+	display(':', f"MAVLINK Connection = {arguments.connection}")
+	display(':', f"MAVLINK Baudrate   = {arguments.baudrate}")
+	display('+', f"GLOBAL POSITION    = ({latitude}, {longitude})", end='\n\n')
+
+	display('*', "Connecting to MAVLINK...")
+	master = mavutil.mavlink_connection(arguments.connection, arguments.baudrate)
+	display('*', "Waiting for Heartbeat...")
+	master.wait_heartbeat()
+	display('+', "Heartbeat Received")
+	display(':', f"\tSYSTEM    => {master.target_system}")
+	display(':', f"\tCOMPONENT => {master.target_component}", end='\n\n')
+
+	display('*', f"Going to Position => ({latitude}, {longitude}) with Yaw : {yaw}")
+	goto_global_position(master, latitude, longitude, altitude, yaw=yaw, tolerance=position_tolerance)
+	display("+", f"Done!")
