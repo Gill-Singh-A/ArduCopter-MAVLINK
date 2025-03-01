@@ -31,7 +31,9 @@ if __name__ == "__main__":
 	arguments.baudrate = int(arguments.baudrate) if arguments.baudrate else configuration["baudrate"]
 	if not arguments.latitude or not arguments.longitude or not arguments.altitude:
 		current_position = True
+		home_latitude, home_longitude, home_altitude = None, None, None
 	else:
+		current_position = False
 		home_latitude, home_longitude, home_altitude = float(arguments.latitude), float(arguments.longitude), float(arguments.altitude)
 	home_roll = float(arguments.roll) if arguments.roll else 0
 	home_pitch = float(arguments.pitch) if arguments.pitch else 0

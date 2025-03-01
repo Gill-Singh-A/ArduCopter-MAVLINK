@@ -36,7 +36,7 @@ if __name__ == "__main__":
 	arguments = get_arguments(('-x', "--north", "x", "Distance to Move in North (in meters)"),
                               ('-y', "--east", "y", "Distance to Move in East (in meters)"),
                               ('-z', "--down", "z", "Distance to Move Down (in meters)"),
-                              ('-y', "--yaw", "yaw", f"Yaw (Default={configuration['yaw']})"),
+                              ('-Y', "--yaw", "yaw", f"Yaw (Default={configuration['yaw']})"),
                               ('-t', "--position-tolerance", "position_tolerance", f"Position Tolerance (in meters, Default={configuration['position_tolerance']})"),
                               ('-c', "--connection", "connection", f"Serial Device for MAVLINK (Default={configuration['connection']})"),
                               ('-b', "--baudrate", "baudrate", f"Baudrate for MAVLINK Connection (Default={configuration['baudrate']})"))

@@ -22,13 +22,6 @@ if __name__ == "__main__":
                               ('-b', "--baudrate", "baudrate", f"Baudrate for MAVLINK Connection (Default={configuration['baudrate']})"))
 	arguments.connection = arguments.connection if arguments.connection else configuration["connection"]
 	arguments.baudrate = int(arguments.baudrate) if arguments.baudrate else configuration["baudrate"]
-	if not arguments.latitude or not arguments.longitude or not arguments.altitude:
-		current_position = True
-	else:
-		home_latitude, home_longitude, home_altitude = float(arguments.latitude), float(arguments.longitude), float(arguments.altitude)
-	home_roll = float(arguments.roll) if arguments.roll else 0
-	home_pitch = float(arguments.pitch) if arguments.pitch else 0
-	home_yaw = float(arguments.yaw) if arguments.yaw else 0
 
 	display(':', f"MAVLINK Connection = {arguments.connection}")
 	display(':', f"MAVLINK Baudrate   = {arguments.baudrate}", end='\n\n')
