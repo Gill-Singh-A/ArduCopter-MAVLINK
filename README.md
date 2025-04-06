@@ -54,5 +54,6 @@ Some programs have extra command line arguments
 * yaw: Yaw
 * position-tolerance: Position Tolerance (in meters)
 # References
-* [ArduCopter MAVLink Messages](https://ardupilot.org/dev/docs/ArduCopter_MAVLink_Messages.html)
+* [Mission Commands](https://ardupilot.org/dev/docs/common-mavlink-mission-command-messages-mav_cmd.html)
 * [MAVLink Developer Guide](https://mavlink.io/en/)
+* [ArduPilot Docs](https://ardupilot.org/dev/docs/)
